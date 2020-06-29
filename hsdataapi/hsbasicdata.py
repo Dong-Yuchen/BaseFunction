@@ -658,6 +658,9 @@ if __name__=='__main__':
     ed_income = ed.get_ashare_income('20150420','20160420')
     ed_ipo_date = ed.get_ipo_date()
     '''
+    '''
+    汇鸿汇升
+    '''
     
     
     
