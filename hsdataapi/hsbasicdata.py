@@ -344,7 +344,43 @@ class EquityData(object):
         
         data = pd.read_csv(query_str)        
         return data
-    
+    #股票量化因子库获取函数 
+    def get_ashare_pit_financial_factor(self,start_date= None,end_date = None,fields = None):
+        '''
+        A股PIT财务因子（中国准则）
+        Parameters
+        ----------
+        start_date : str
+            开始日期，格式为 yyyymmdd 字符串
+        end_date : str
+            结束如期，格式为 yyyymmdd 字符串
+        fields : list
+            想要获取的指定数据
+        '''
+        if start_date is None:
+            start_date = '20070101'
+        if end_date is None:
+            end_date = date_to_str(datetime.today())
+       
+
+        assert end_date >= start_date, 'until date must be greater than since date'
+        
+        start_date = date_format(start_date) 
+        end_date = date_format(end_date)
+            
+        
+        tableName = 'f_stocka_pitfinancial'
+        if fields is None:
+            query_str = self.path+'tableName='+tableName+'&begDate='+start_date+\
+            '&endDate='+end_date           
+        else:
+            fields_str= 'c_code,t_tradingDate,'+','.join(fields)
+            query_str = self.path+'tableName='+tableName+'&begDate='+start_date+\
+            '&endDate='+end_date+'&fields='+fields_str
+
+        
+        data = pd.read_csv(query_str)        
+        return data
     #股票基本信息获取函数    
     def get_ipo_date(self):
         '''
@@ -659,8 +695,9 @@ if __name__=='__main__':
     ed_ipo_date = ed.get_ipo_date()
     '''
     '''
-    汇鸿汇升
+    版本控制
     '''
+
     
     
     
